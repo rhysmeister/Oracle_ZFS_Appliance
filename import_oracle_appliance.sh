@@ -4,7 +4,7 @@
 # Found at http://www.oracle.com/technetwork/server-storage/sun-unified-storage/downloads/sun-simulator-1368816.html
 # We must do the import, rather than creating a box, the import generates a unique id that must be
 # different in order to setup replication.
-# Boxes will clone this uuid and replication between the hosts does not work
+# Boxes will clone this uuid and replication between the hosts does not work (I think... checking this)
 set -e;
 set -u;
 set -x;
