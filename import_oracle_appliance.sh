@@ -27,6 +27,11 @@ if [[ ${INSTANCES} -eq 0 ]]; then
    VBoxManage import "$OVF_FILE_PATH" --vsys 0 --vmname OracleZFS1 --eula accept >> "$LOG_FILE" 2>&1;
    VBoxManage import "$OVF_FILE_PATH" --vsys 0 --vmname OracleZFS2 --eula accept >> "$LOG_FILE" 2>&1;
    echo "Successfully imported two instances of $OVF_FILE_PATH";
+   mkdir -p .vagrant/machines/OracleZFS1/virtualbox/;
+   VBoxManage list vms | grep OracleZFS1 | cut -d "{" -f2 | cut -d "}" -f1 > .vagrant/machines/OracleZFS1/virtualbox/id;
+   mkdir -p .vagrant/machines/OracleZFS2/virtualbox/;
+   VBoxManage list vms | grep OracleZFS2 | cut -d "{" -f2 | cut -d "}" -f1 > .vagrant/machines/OracleZFS2/virtualbox/id;
+   echo "Successfully created vagrant id files in .vagrant/machines/";
    exit 0;
 elif [[ ${INSTANCES} -eq 2 ]]; then
   echo "2 OracleZFS instances present on this host. Exiting without error";
