@@ -35,6 +35,10 @@ if [ "$BOX" -eq 0 ]; then # Import and create the box
   fi;
   # Get the ID we need
   ID=$(VBoxManage list vms | grep OracleZFS_BOX| cut -d "{" -f2 | cut -d "}" -f1);
+  # First adapter must be a NAT adapter
+  VBoxManage modifyvm "$ID" --nic1 nat
+  # Get the mac address for this adapter. We need this for Vagrant config.vm.base_mac
+  MAC=$(VBoxManage showvminfo "$ID" | grep -e "^NIC 1" | cut -d " " -f 14 | cut -d "," -f 1);
   # Package the vm as a vagrant box
   vagrant package --base "$ID" --output OracleZFS.box;
   vagrant box add OracleZFS.box --name OracleZFS;
