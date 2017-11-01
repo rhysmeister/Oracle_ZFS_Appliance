@@ -1,0 +1,34 @@
+{
+  "builders": [{
+      "boot_command": [
+        "<enter>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<enter><wait5>",
+        "<bs><bs><bs><bs><bs><bs><bs>{{ .Name }}<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>local<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>192.168.27.3<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>255.255.255.0<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>192.168.27.1<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>192.168.27.1<tab>",
+        "secret<tab>",
+        "secret<tab>",
+        "<enter><enter>"
+      ],
+      "type": "virtualbox-ovf",
+      "source_path": "/Users/rhys1/Downloads/OS8.7VirtualBox/OS8.7VirtualBox.ovf",
+      "output_directory": "packer-solaris11_2-virtualbox",
+      "shutdown_command": "sudo /usr/sbin/init 5",
+      "ssh_port": 22,
+      "ssh_username": "root",
+      "virtualbox_version_file":".vbox_version",
+      "vm_name":"packer-oracle-zfs",
+      "vboxmanage": [
+            [
+              "modifyvm",
+              "{{.Name}}",
+              "--nic1",
+              "nat"
+            ]
+        ]
+  }]
+}
