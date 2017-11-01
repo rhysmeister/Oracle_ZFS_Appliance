@@ -2,7 +2,7 @@
   "builders": [{
       "boot_command": [
         "<enter>",
-        "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<enter><wait5>",
         "<bs><bs><bs><bs><bs><bs><bs>{{ .Name }}<tab>",
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>local<tab>",
@@ -12,7 +12,7 @@
         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>192.168.27.1<tab>",
         "secret<tab>",
         "secret<tab>",
-        "<enter><enter>"
+        "<enter><enter><esc>1"
       ],
       "type": "virtualbox-ovf",
       "source_path": "/Users/rhys1/Downloads/OS8.7VirtualBox/OS8.7VirtualBox.ovf",
@@ -27,7 +27,9 @@
               "modifyvm",
               "{{.Name}}",
               "--nic1",
-              "nat"
+              "hostonly",
+              "--hostonlyadapter1",
+              "vboxnet0"
             ]
         ]
   }]
