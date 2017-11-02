@@ -1,25 +1,62 @@
 {
+  "variables": {
+    "ssh_username": "root",
+    "ssh_password": "secret",
+    "ip_address": "192.168.47.110",
+    "subnet_mask": "255.255.255.0",
+    "default_route": "192.168.47.100",
+    "dns_server": "192.168.47.100",
+    "dns_domain": "local"
+  },
   "builders": [{
       "boot_command": [
+        "<wait5>",
         "<enter>",
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<enter><wait5>",
         "<bs><bs><bs><bs><bs><bs><bs>{{ .Name }}<tab>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>local<tab>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>192.168.27.3<tab>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>255.255.255.0<tab>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>192.168.27.1<tab>",
-        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>192.168.27.1<tab>",
-        "secret<tab>",
-        "secret<tab>",
-        "<enter><enter><esc>1"
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>{{ user `dns_domain` }}<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>{{ user `ip_address` }}<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>{{ user `subnet_mask` }}<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>{{ user `default_route` }}<tab>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>{{ user `dns_server` }}<tab>",
+        "{{ user `ssh_password` }}<tab>",
+        "{{ user `ssh_password` }}<tab>",
+        "<enter><enter><esc>1",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<enter><enter>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "{{ user `ssh_username` }}<enter>",
+        "<wait>",
+        "{{ user `ssh_password` }}<enter>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<enter>",
+        "<wait>",
+        "done<enter>",
+        "<wait>",
+        "done<enter>",
+        "<wait>",
+        "done<enter>",
+        "<wait>",
+        "done<enter>",
+        "<wait>",
+        "done<enter>",
+        "<wait>",
+        "done<enter>",
+        "exit<enter><wait>"
       ],
       "type": "virtualbox-ovf",
       "source_path": "/Users/rhys1/Downloads/OS8.7VirtualBox/OS8.7VirtualBox.ovf",
       "output_directory": "packer-solaris11_2-virtualbox",
       "shutdown_command": "sudo /usr/sbin/init 5",
+      "ssh_host": "{{ user `ip_address` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
       "ssh_port": 22,
-      "ssh_username": "root",
       "virtualbox_version_file":".vbox_version",
       "vm_name":"packer-oracle-zfs",
       "vboxmanage": [
@@ -30,7 +67,8 @@
               "hostonly",
               "--hostonlyadapter1",
               "vboxnet0"
-            ]
+            ],
+            [ "modifyvm", "{{.Name}}", "--natpf1", "guest_ssh,tcp,,3022,,22" ]
         ]
   }]
 }
