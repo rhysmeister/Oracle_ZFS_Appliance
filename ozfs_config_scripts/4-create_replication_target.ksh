@@ -1,5 +1,6 @@
 # The target host must be up and contactable for this script to succeed
 # We do this only source -> target
+cd /
 configuration
 services
 replication
