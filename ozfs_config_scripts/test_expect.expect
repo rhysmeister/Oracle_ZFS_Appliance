@@ -1,0 +1,12 @@
+#!/usr/bin/expect -f
+set timeout -1
+spawn ssh root@192.168.47.110
+expect "Password:"
+send "secret\r"
+expect "zfs1"
+send "show\r"
+expect "zfs1"
+send "configuration\r"
+expect "configuration"
+send "show\r"
+send "exit\r"

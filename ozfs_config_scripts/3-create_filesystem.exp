@@ -1,0 +1,14 @@
+#!/usr/bin/expect -f
+# create a filesystem in the rhys shares
+set appliance [lindex $argv 0]
+set timeout -1
+spawn ssh "root@$appliance"
+expect "Password:"
+send "secret\r"
+expect "zfs"
+send "cd /\r"
+send "shares\r"
+send "select rhys\r"
+send "filesystem rhys\r"
+send "commit\r"
+exit

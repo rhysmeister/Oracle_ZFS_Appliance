@@ -1,0 +1,14 @@
+#!/usr/bin/expect -f
+# This script writes data to the rhys share. We only run this on one hostname
+set appliance [lindex $argv 0]
+set timeout -1
+spawn ssh "root@$appliance"
+expect "Password:"
+send "secret\r"
+expect "zfs"
+send "cd /\r"
+send "confirm shell\r"
+send "mkfile -n 1g /export/rhys/test1.file\r"
+send "mkfile -n 100m /export/rhys/test2.file\r"
+send "mkfile -n 256b /export/rhys/test3.file\r"
+exit

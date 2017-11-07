@@ -1,0 +1,21 @@
+#!/usr/bin/expect -f
+# Script to configure a replication action
+# Need to add continuous & perhaps other options here
+set appliance [lindex $argv 0]
+set timeout -1
+spawn ssh "root@$appliance"
+expect "Password:"
+send "secret\r"
+expect "zfs"
+send "cd /\r"
+send "shares\r"
+send "select rhys\r"
+send "replication\r"
+send "action\r"
+send "set target=rhys\r"
+send "set pool=pool0\r"
+send "set continuous=true\r"
+send "commit\r"
+# last get id
+send "done\r"
+exit

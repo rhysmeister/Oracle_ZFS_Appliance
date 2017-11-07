@@ -1,0 +1,20 @@
+#!/usr/bin/expect -f
+# The target host must be up and contactable for this script to succeed
+# We do this only source -> target
+set appliance [lindex $argv 0]
+set timeout -1
+spawn ssh "root@$appliance"
+expect "Password:"
+send "secret\r"
+expect "zfs"
+send "cd /\r"
+send "configuration\r"
+send "services\r"
+send "replication\r"
+send "targets\r"
+send "target\r"
+send "set hostname=192.168.47.111\r"
+send "set root_password=secret\r"
+send "set label=rhys\r"
+send "commit\r"
+exit
