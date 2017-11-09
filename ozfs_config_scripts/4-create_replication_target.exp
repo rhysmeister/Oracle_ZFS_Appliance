@@ -16,4 +16,5 @@ expect "zfs" { send "set hostname=$target\r" }
 expect "zfs" { send "set root_password=secret\r" }
 expect "zfs" { send "set label=rhys\r" }
 expect "zfs" { send "commit\r" }
+expect "zfs" { send "exit\r" }
 exit
