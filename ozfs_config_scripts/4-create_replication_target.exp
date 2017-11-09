@@ -2,19 +2,18 @@
 # The target host must be up and contactable for this script to succeed
 # We do this only source -> target
 set appliance [lindex $argv 0]
+set target [lindex $argv 1]
 set timeout -1
 spawn ssh "root@$appliance"
-expect "Password:"
-send "secret\r"
-expect "zfs"
-send "cd /\r"
-send "configuration\r"
-send "services\r"
-send "replication\r"
-send "targets\r"
-send "target\r"
-send "set hostname=192.168.47.111\r"
-send "set root_password=secret\r"
-send "set label=rhys\r"
-send "commit\r"
+expect "Password:" { send "secret\r" }
+expect "zfs" { send "cd /\r" }
+expect "zfs" { send "configuration\r" }
+expect "zfs" { send "services\r" }
+expect "zfs" { send "replication\r" }
+expect "zfs" { send "targets\r" }
+expect "zfs" { send "target\r" }
+expect "zfs" { send "set hostname=$target\r" }
+expect "zfs" { send "set root_password=secret\r" }
+expect "zfs" { send "set label=rhys\r" }
+expect "zfs" { send "commit\r" }
 exit

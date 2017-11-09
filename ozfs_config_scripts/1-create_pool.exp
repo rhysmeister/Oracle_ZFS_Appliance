@@ -3,20 +3,12 @@
 set appliance [lindex $argv 0]
 set timeout -1
 spawn ssh "root@$appliance"
-expect "Password:"
-send "secret\r"
-expect "zfs"
-send "configuration\n"
-expect "zfs"
-send "storage\n"
-expect "zfs"
-send "config pool0\n"
-expect "zfs"
-send "set data=4\n"
-expect "zfs"
-send "done\n"
-expect "zfs"
-send "done\n"
-expect "zfs"
-send "exit\n"
+expect "Password:" { send "secret\r" }
+expect "zfs" { send "configuration\r" }
+expect "zfs" { send "storage\r" }
+expect "zfs" { send "config pool0\r" }
+expect "zfs" { send "set data=4\r" }
+expect "zfs" { send "done\r" }
+expect "zfs" { send "done\r" }
+expect "zfs" { send "exit\r" }
 exit

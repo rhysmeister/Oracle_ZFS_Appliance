@@ -3,12 +3,11 @@
 set appliance [lindex $argv 0]
 set timeout -1
 spawn ssh "root@$appliance"
-expect "Password:"
-send "secret\r"
-expect "zfs"
-send "cd /\r"
-send "shares\r"
-send "select rhys\r"
-send "filesystem rhys\r"
-send "commit\r"
+expect "Password:" { send "secret\r" }
+expect "zfs" { send "cd /\r" }
+expect "zfs" { send "shares\r" }
+expect "zfs" { send "select rhys\r" }
+expect "zfs" { send "filesystem rhys\r" }
+expect "zfs" { send "commit\r" }
+expect "zfs" { send "exit\r" }
 exit

@@ -4,18 +4,17 @@
 set appliance [lindex $argv 0]
 set timeout -1
 spawn ssh "root@$appliance"
-expect "Password:"
-send "secret\r"
-expect "zfs"
-send "cd /\r"
-send "shares\r"
-send "select rhys\r"
-send "replication\r"
-send "action\r"
-send "set target=rhys\r"
-send "set pool=pool0\r"
-send "set continuous=true\r"
-send "commit\r"
+expect "Password:" { send "secret\r" }
+expect "zfs" { send "cd /\r" }
+expect "zfs" { send "shares\r" }
+expect "zfs" { send "select rhys\r" }
+expect "zfs" { send "replication\r" }
+expect "zfs" { send "action\r" }
+expect "zfs" { send "set target=rhys\r" }
+expect "zfs" { send "set pool=pool0\r" }
+expect "zfs" { send "set continuous=true\r" }
+expect "zfs" { send "commit\r" }
 # last get id
-send "done\r"
+expect "zfs" { send "done\r" }
+expect "zfs" { send "exit\r" }
 exit

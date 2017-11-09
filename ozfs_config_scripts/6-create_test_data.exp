@@ -3,12 +3,11 @@
 set appliance [lindex $argv 0]
 set timeout -1
 spawn ssh "root@$appliance"
-expect "Password:"
-send "secret\r"
-expect "zfs"
-send "cd /\r"
-send "confirm shell\r"
-send "mkfile -n 1g /export/rhys/test1.file\r"
-send "mkfile -n 100m /export/rhys/test2.file\r"
-send "mkfile -n 256b /export/rhys/test3.file\r"
+expect "Password:" { send "secret\r" }
+expect "zfs" { send "cd /\r" }
+expect "zfs" { send "confirm shell\r" }
+expect "zfs" { send "mkfile -n 1g /export/rhys/test1.file\r" }
+expect "zfs" { send "mkfile -n 100m /export/rhys/test2.file\r" }
+expect "zfs" { send "mkfile -n 256b /export/rhys/test3.file\r" }
+expect "zfs" { send "exit\r" }
 exit
