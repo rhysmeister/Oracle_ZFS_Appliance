@@ -1,16 +1,16 @@
 #!/bin/bash
-#packer build packer-oracle-zfs-appliance1.json && echo "Finished building appliance #1";
-#rmdir output-virtualbox-ovf && echo "Removed unneeded empty output directory";
-#packer build packer-oracle-zfs-appliance2.json && echo "Finished building appliance #2";
-#rmdir output-virtualbox-ovf && echo "Removed unneeded empty output directory";
-#sleep 60 && echo "Sleeping for 60 seconds";
+packer build packer-oracle-zfs-appliance1.json && echo "Finished building appliance #1";
+rmdir output-virtualbox-ovf && echo "Removed unneeded empty output directory";
+packer build packer-oracle-zfs-appliance2.json && echo "Finished building appliance #2";
+rmdir output-virtualbox-ovf && echo "Removed unneeded empty output directory";
+sleep 60 && echo "Sleeping for 60 seconds";
 
 # Start the vms up again
-#VBoxManage startvm "packer-oracle-zfs1";
-#VBoxManage startvm "packer-oracle-zfs2";
+VBoxManage startvm "packer-oracle-zfs1";
+VBoxManage startvm "packer-oracle-zfs2";
 
 # Sleep for a bit
-#sleep 120
+sleep 120
 
 # Configure the appliances
 ozfs_config_scripts/1-create_pool.exp 192.168.47.110;
