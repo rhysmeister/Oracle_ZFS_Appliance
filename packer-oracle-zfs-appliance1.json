@@ -1,5 +1,6 @@
 {
   "variables": {
+    "source_path": "/Users/rhys1/Downloads/OS8.7VirtualBox/OS8.7VirtualBox.ovf",
     "ssh_username": "root",
     "ssh_password": "secret",
     "ip_address": "192.168.47.110",
@@ -50,7 +51,7 @@
         "exit<enter><wait>"
       ],
       "type": "virtualbox-ovf",
-      "source_path": "/Users/rhys1/Downloads/OS8.7VirtualBox/OS8.7VirtualBox.ovf",
+      "source_path": "{{ user `source_path` }}",
       "shutdown_command": "",
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_password": "{{ user `ssh_password` }}",
